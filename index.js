@@ -27,13 +27,13 @@ const { UpdateCurrency } = require("./scrypt");
 schedule.scheduleJob("0 * * * *", UpdateCurrency);
 
 async function main() {
+  console.log(process.env.DATABASE_URL, " database url");
   mongoose.connect(`${process.env.DATABASE_URL}`);
   mongoose.connection.on("error", (err) => {
     console.log("Error in connection to database : ", err);
   });
   mongoose.connection.on("open", () => {
     console.log("Connected to the database");
-    console.log(process.env.DATABASE_URL, " database url");
   });
   app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);
