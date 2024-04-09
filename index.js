@@ -28,7 +28,7 @@ schedule.scheduleJob("0 * * * *", UpdateCurrency);
 
 async function main() {
   console.log(process.env.DATABASE_URL, " database url");
-  mongoose.connect(`${process.env.DATABASE_URL}`);
+  await mongoose.connect(`${process.env.DATABASE_URL}`);
   mongoose.connection.on("error", (err) => {
     console.log("Error in connection to database : ", err);
   });
