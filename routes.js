@@ -25,23 +25,27 @@ router.get("/exchange-price", async (req, res) => {
       date = `${day}-${month}-${year}`;
     }
 
-    console.log("From Crypto:", fromCrypto);
-
     const fromCryptoPriceInUSD = await axios.get(
       `https://api.coingecko.com/api/v3/coins/${fromCurrency}/history?date=${date}&localization=false`
     );
+
+    const fromCryptoUsd =
+      fromCryptoPriceInUSD.data.market_data.current_price["usd"];
 
     const toCryptoPriceInUSD = await axios.get(
       `https://api.coingecko.com/api/v3/coins/${toCurrency}/history?date=${date}&localization=false`
     );
 
+    const toCryptoUsd =
+      toCryptoPriceInUSD.data.market_data.current_price["usd"];
+
+    const price = fromCryptoUsd / toCryptoUsd;
+
     res.json({
       fromCurrency: fromCrypto.name,
       toCurrency: toCrypto.name,
-      date: isoDate,
-      price:
-        fromCryptoPriceInUSD.data.market_data.current_price["usd"] /
-        toCryptoPriceInUSD.data.market_data.current_price["usd"],
+      date,
+      price,
     });
   } catch (error) {
     res.status(500).json({ error: error });
