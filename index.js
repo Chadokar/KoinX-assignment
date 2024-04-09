@@ -33,6 +33,7 @@ async function main() {
   });
   mongoose.connection.on("open", () => {
     console.log("Connected to the database");
+    console.log(process.env.DATABASE_URL, " database url");
   });
   app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);
