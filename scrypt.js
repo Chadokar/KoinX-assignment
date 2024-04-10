@@ -45,7 +45,19 @@ const UpdateCurrency = async () => {
       });
     });
   } catch (err) {
-    console.error(err);
+    if (
+      err.response &&
+      err.response.status === 429 &&
+      err.response.headers["retry-after"]
+    ) {
+      const retryAfterSeconds = parseInt(err.response.headers["retry-after"]);
+      console.log(
+        `Rate limited, waiting for ${retryAfterSeconds} seconds before retrying...`
+      );
+      setTimeout(UpdateCurrency, retryAfterSeconds * 1000);
+    } else {
+      console.error(err);
+    }
   }
 };
 
