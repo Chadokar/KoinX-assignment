@@ -24,7 +24,7 @@ app.all("*", (req, res, next) => {
 
 // schedule job
 const { UpdateCurrency } = require("./scrypt");
-schedule.scheduleJob("* * * * *", UpdateCurrency);
+schedule.scheduleJob("*/3 * * * *", UpdateCurrency);
 
 async function main() {
   await mongoose.connect(`${process.env.DATABASE_URL}`);
