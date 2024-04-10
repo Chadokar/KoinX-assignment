@@ -34,15 +34,15 @@ const UpdateCurrency = async () => {
         currencyId: element.id,
       });
     });
-    await Currency.deleteMany().then(async () => {
-      await Currency.insertMany(currencyArray);
-    });
-    console.log("Message : Data updated successfully");
-
-    sendingMail({
-      to: "shubhamchadokar36@gmail.com",
-      subject: "DATA UPDATED SUCCESSFULLY",
-      text: `Your data has been updated successfully.`,
+    Currency.deleteMany().then(async () => {
+      Currency.insertMany(currencyArray).then(async () => {
+        await sendingMail({
+          to: "shubhamchadokar36@gmail.com",
+          subject: "DATA UPDATED SUCCESSFULLY",
+          text: `Your data has been updated successfully.`,
+        });
+        console.log("Message : Data updated successfully");
+      });
     });
   } catch (err) {
     console.error(err);
