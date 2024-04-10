@@ -45,7 +45,7 @@ const UpdateCurrency = async () => {
       text: `Your data has been updated successfully.`,
     });
   } catch (err) {
-    console.log(err.message);
+    console.error(err);
   }
 };
 
