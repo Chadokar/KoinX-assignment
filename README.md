@@ -37,7 +37,7 @@
 ```bash
 PORT=8000
 DATABASE_URL="<mongodb url>"
-EMAIL="<email to send otp with>"
+EMAIL="<email to send message>"
 EMAIL_PASSWORD="<app password for email>"
 ```
 
